@@ -1,5 +1,5 @@
 #!/bin/bash
-if [ $# -lt 1 ]
+if [ $# -lt 2 ]
 then
         echo "Insert time range YYYY/MM YYYY/MM" 
         echo "Example : $0 2015/11 2017/8"
