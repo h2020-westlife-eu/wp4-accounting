@@ -22,3 +22,7 @@ Cloud Platform KPIs:
 Number of VMs run=1044
 
 Wall Time Hours used=177285
+
+$ ./westlife-accounting-monthly.sh
+
+Produces a CSV table of those numbers, starting from 2015/11 till the current month. Easy to hack.

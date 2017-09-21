@@ -7,12 +7,22 @@ then
 fi
 start=$1
 end=$2
-echo
-echo HTC Platform KPIs:
-echo Number of jobs submitted=$(python accounting.py -i https://accounting.egi.eu/egi/htc/njobs/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
-echo Normalized CPU Hours used=$(python accounting.py -i https://accounting.egi.eu/egi/htc/normcpu-hour/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null  | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
-echo
-echo Cloud Platform KPIs:
-echo Number of VMs run=$(python accounting.py -i https://accounting.egi.eu/egi/cloud/number_of_virtual_machines/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
-echo Wall Time Hours used=$(python accounting.py -i https://accounting.egi.eu/egi/cloud/sum_elap-hour/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
-echo
+
+jobs=$(python accounting.py -i https://accounting.egi.eu/egi/htc/njobs/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
+cpuh=$(python accounting.py -i https://accounting.egi.eu/egi/htc/normcpu-hour/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null  | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
+vms=$(python accounting.py -i https://accounting.egi.eu/egi/cloud/number_of_virtual_machines/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
+vmtime=$(python accounting.py -i https://accounting.egi.eu/egi/cloud/sum_elap-hour/SITE/VO/$start/$end/custom-enmr.eu/onlyinfrajobs/CSV 2>/dev/null | grep Total | grep -v'enmr.eu' | cut -d',' -f3)
+
+if [[ -z "$RAW" ]]; then
+	echo
+	echo HTC Platform KPIs:
+	echo Number of jobs submitted=$jobs
+	echo Normalized CPU Hours used=$cpuh
+	echo
+	echo Cloud Platform KPIs:
+	echo Number of VMs run=$vms
+	echo Wall Time Hours used=$vmtime
+	echo
+else
+	echo "$jobs,$cpuh,$vms,$vmtime"
+fi
