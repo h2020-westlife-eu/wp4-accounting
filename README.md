@@ -1,5 +1,7 @@
 # wp4-accounting
-scripts for querying the EGI Accounting DB
+Scripts for querying the EGI Accounting DB (using API published in https://wiki.egi.eu/wiki/Accounting_Portal_API)
+
+Requirements: python module "requests", installable e.g. via command "$ pip install requests" 
 
 Example of use:
 
